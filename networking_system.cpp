@@ -115,7 +115,130 @@ void EdgeColor(int ed[][3], int e) {
       }
    }
 }
-int main() {
+
+/*Using doubly linked lists to represent computer processes via linear as well as cyclic links*/
+
+struct Node { 
+    struct Node* next;
+    struct Node* prev;
+    int value;
+};
+
+Node* head = NULL;
+Node* tail = NULL;
+
+
+void add_lin_prog(Node** ref, int data) 
+{ 
+    Node* new_node = new Node;
+
+    new_node->next = (*ref); 
+    new_node->prev = NULL; 
+    new_node->value = data;
+
+    if ((*ref) != NULL)
+        (*ref)->prev = new_node;
+    else
+    {
+        head = new_node;
+        tail = new_node;
+    }
+
+    (*ref) = new_node;
+}
+
+
+void add_cir_prog(Node** ref, int data) 
+{
+    if((*ref) == NULL) {
+        add_lin_prog(ref, data);
+        return;
+    }
+
+    if ((*ref)->next == NULL)
+    {
+        Node* new_node = new Node;
+        new_node->next = (*ref);
+        new_node->prev = (*ref);
+        new_node->value = data;
+        (*ref)->next = new_node;
+        return;
+    }
+
+    Node *temp = (*ref)->next;
+  
+    Node* new_node = new Node; 
+
+    new_node->value = data;
+
+    new_node->next = temp; 
+
+    temp->prev = new_node; 
+
+    new_node->prev = *ref; 
+
+    (*ref)->next = new_node; 
+} 
+
+
+int detectLoop(Node* ref) 
+{
+    Node *tort = ref, *heir = ref;
+
+    int cir_pr = 1;
+    while (tort && heir && heir->next)
+    {
+        tort = tort->next;
+        heir = heir->next->next;
+        if (tort == heir)
+        {
+            tort = head;
+            while (tort != heir) {
+                tort = tort->next;
+                heir = heir->next;
+            }
+            cout<<"\nStarting process of cycle: "<<tort->value;
+            tort = tort->next;
+            while (tort != heir) {
+                tort = tort->next;
+                cir_pr++;
+            }
+            cout<<"\nNumber of processes in cycle: "<< cir_pr;
+            return tort->value;
+        }
+    }
+    cout<<"\nCyclic linked processes NOT found";
+    return -1;
+} 
+
+
+void display()
+{
+    Node *temp = head;
+
+    cout<<temp->value<<" <-> ";
+    temp = temp->next;
+    
+    while(temp != tail)
+    {
+        cout<<temp->value<<" <-> ";
+        temp = temp->next;
+    }
+
+    cout<<temp->value<<" <-> ";
+    temp = temp->next;
+    while(temp != tail)
+    {
+        cout<<temp->value<<" <-> ";
+        temp = temp->next;
+    }
+    cout<<temp->value<<endl;
+}
+
+
+
+int main()
+{
   int routers, connections;
   cout<<"Enter number of Routers"<<endl;
   cin >> routers;
@@ -309,133 +432,8 @@ int main() {
     how by using 4 channels, a node coloring algorithm can be
     used to efficiently plan towers and channels in a mobile
     network*/
-}
-
-/* Ravi : Create a doubly LinkedList with a Cycle where each node will behave as a computer process(During establishing of connection).
-          Then print the traversal of the list, i.e. each node's(process) previous and forward address.
-          Detect a cycle using Turtle and Hare Algorithm and print it's starting point and length of the cycle. This will enable us
-          to deduce the number of dependent processes.*/
-
-struct Node { 
-    struct Node* next;
-    struct Node* prev;
-    int value;
-};
-
-Node* head = NULL;
-Node* tail = NULL;
-
-
-void add_lin_prog(Node** ref, int data) 
-{ 
-    Node* new_node = new Node;
-
-    new_node->next = (*ref); 
-    new_node->prev = NULL; 
-    new_node->value = data;
-
-    if ((*ref) != NULL)
-        (*ref)->prev = new_node;
-    else
-    {
-        head = new_node;
-        tail = new_node;
-    }
-
-    (*ref) = new_node;
-}
-
-
-void add_cir_prog(Node** ref, int data) 
-{
-    if((*ref) == NULL) {
-        add_lin_prog(ref, data);
-        return;
-    }
-
-    if ((*ref)->next == NULL)
-    {
-        Node* new_node = new Node;
-        new_node->next = (*ref);
-        new_node->prev = (*ref);
-        new_node->value = data;
-        (*ref)->next = new_node;
-        return;
-    }
-
-    Node *temp = (*ref)->next;
-  
-    Node* new_node = new Node; 
-
-    new_node->value = data;
-
-    new_node->next = temp; 
-
-    temp->prev = new_node; 
-
-    new_node->prev = *ref; 
-
-    (*ref)->next = new_node; 
-} 
-
-
-int detectLoop(Node* ref) 
-{
-    Node *tort = ref, *heir = ref;
-
-    int cir_pr = 1;
-    while (tort && heir && heir->next)
-    {
-        tort = tort->next;
-        heir = heir->next->next;
-        if (tort == heir)
-        {
-            tort = head;
-            while (tort != heir) {
-                tort = tort->next;
-                heir = heir->next;
-            }
-            cout<<"\nStarting process of cycle: "<<tort->value;
-            tort = tort->next;
-            while (tort != heir) {
-                tort = tort->next;
-                cir_pr++;
-            }
-            cout<<"\nNumber of processes in cycle: "<< cir_pr;
-            return tort->value;
-        }
-    }
-    cout<<"\nCyclic linked processes NOT found";
-    return -1;
-} 
-
-
-void display()
-{
-    Node *temp = head;
-
-    cout<<temp->value<<" <-> ";
-    temp = temp->next;
-    
-    while(temp != tail)
-    {
-        cout<<temp->value<<" <-> ";
-        temp = temp->next;
-    }
-
-    cout<<temp->value<<" <-> ";
-    temp = temp->next;
-    while(temp != tail)
-    {
-        cout<<temp->value<<" <-> ";
-        temp = temp->next;
-    }
-    cout<<temp->value<<endl;
-}
-
-
-int main()
-{
+     
+     
     add_cir_prog(&tail, 1);
     add_lin_prog(&head, 2);
     add_lin_prog(&head, 3);
@@ -464,3 +462,9 @@ int main()
     
     return 0;
 }
+
+/* Ravi : Create a doubly LinkedList with a Cycle where each node will behave as a computer process(During establishing of connection).
+          Then print the traversal of the list, i.e. each node's(process) previous and forward address.
+          Detect a cycle using Turtle and Hare Algorithm and print it's starting point and length of the cycle. This will enable us
+          to deduce the number of dependent processes.*/
+
