@@ -460,11 +460,8 @@ int main()
     else
         cout<<"**Process terminated successfully**";
     
+/* Kushagra: Begin after this line. */
     return 0;
 }
 
-/* Ravi : Create a doubly LinkedList with a Cycle where each node will behave as a computer process(During establishing of connection).
-          Then print the traversal of the list, i.e. each node's(process) previous and forward address.
-          Detect a cycle using Turtle and Hare Algorithm and print it's starting point and length of the cycle. This will enable us
-          to deduce the number of dependent processes.*/
 
