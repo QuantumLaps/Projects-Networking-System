@@ -16,7 +16,7 @@ Functionalities as of now:
 - [x] Maahir Sharma : Code Maintainer and Idea Generation (Module Handled and Created : Graph Theory Functionalities)
 - [ ] Kushagra Sharma : Trees and Tries Functionalities to be added soon(Module Handled and Created : Tree Algorithms)
 - [ ] Rahul Das : Strings and Algorithms Functionalities to be added soon(Module Handled and Created : String Algorithms and Hashing)
-- [Ticked] Ravi Gusain : LinkedList Functionalities to be added soon(Module Handled and Created : LinkedList Implementation in OS Processes)
+- [Ticked] Ravi Gusain : Added LinkedList Functionalities(Module Handled and Created : LinkedList Implementation in OS Processes)
 
 ### Installation :
 
