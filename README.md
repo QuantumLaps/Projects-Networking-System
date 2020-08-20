@@ -13,10 +13,10 @@ Functionalities as of now:
 - Added Optimal Cell Tower Placement Map is likened to a color,(channel–colors are limited to four), and found where to economically position broadcast towers for maximum coverage via Four Color Map Problem || Vizing's theorem (Referenced)
 
 ### Contribution Stats:
-- [x] Maahir Sharma : Code Maintainer and Idea Generation (Module Handled and Created : Graph Theory Functionalities)
+- [X] Maahir Sharma : Code Maintainer and Idea Generation (Module Handled and Created : Graph Theory Functionalities)
 - [ ] Kushagra Sharma : Trees and Tries Functionalities to be added soon(Module Handled and Created : Tree Algorithms)
-- [ ] Rahul Das : Strings and Algorithms Functionalities to be added soon(Module Handled and Created : String Algorithms and Hashing)
-- [Ticked] Ravi Gusain : Added LinkedList Functionalities(Module Handled and Created : LinkedList Implementation in OS Processes)
+- [ ] Rahul Das : Huffman Decoding Functionalities to be added soon(Module Handled and Created : Huffman string and Huffman Tree)
+- [X] Ravi Gusain : Added LinkedList Functionalities(Module Handled and Created : LinkedList Implementation in OS Processes)
 
 ### Installation :
 
