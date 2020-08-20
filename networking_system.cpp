@@ -464,12 +464,15 @@ int main()
     return 0;
      
 /* Rahul Das : Huffmann Encoding. 
-/* Tasks :
+Tasks :
 1) Build a Huffman Tree from input characters along with their frequency.
 2) Traverse the Huffman Tree and assign codes to characters.
 3) Create a cumulative Huffmann String.
 4) Decode this string by traversing the Huffmann Tree.
 5) Take reference from : https://www.geeksforgeeks.org/huffman-decoding/
+6) Also take reference from : https://www.geeksforgeeks.org/huffman-coding-greedy-algo-3/
+*/
+    
 }
 
 
