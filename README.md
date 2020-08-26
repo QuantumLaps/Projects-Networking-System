@@ -15,7 +15,7 @@ Functionalities as of now:
 ### Contribution Stats:
 - [X] Maahir Sharma : Code Maintainer and Idea Generation (Module Handled and Created : Graph Theory Functionalities)
 - [ ] Kushagra Sharma : Trees and Tries Functionalities to be added soon(Module Handled and Created : Tree Algorithms)
-- [ ] Rahul Das : Huffman Decoding Functionalities to be added soon(Module Handled and Created : Huffman string and Huffman Tree)
+- [X] Rahul Das : Huffman Decoding Functionalities added (Module Handled and Created : Huffman string and Huffman Tree)
 - [X] Ravi Gusain : Added LinkedList Functionalities(Module Handled and Created : LinkedList Implementation in OS Processes)
 
 ### Installation :
