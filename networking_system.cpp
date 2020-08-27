@@ -29,12 +29,12 @@ struct Edges
 };
 struct LSP
 {
-  int nodeid = -1;
+  int raviNodeid = -1;
   vector<int> neighbours;
   int sequence = 1;
-  LSP(int nodeid, vector<int> chk, int tt)
+  LSP(int raviNodeid, vector<int> chk, int tt)
   {
-    this->nodeid = nodeid;
+    this->raviNodeid = raviNodeid;
     neighbours = chk;
     sequence = tt;
   }
@@ -142,36 +142,36 @@ void EdgeColor(int ed[][3], int e)
 
 /*Using doubly linked lists to represent computer processes via linear as well as cyclic links*/
 
-struct Node
+struct raviNode
 {
-  struct Node *next;
-  struct Node *prev;
+  struct raviNode *next;
+  struct raviNode *prev;
   int value;
 };
 
-Node *head = NULL;
-Node *tail = NULL;
+raviNode *head = NULL;
+raviNode *tail = NULL;
 
-void add_lin_prog(Node **ref, int data)
+void add_lin_prog(raviNode **ref, int data)
 {
-  Node *new_node = new Node;
+  raviNode *new_raviNode = new raviNode;
 
-  new_node->next = (*ref);
-  new_node->prev = NULL;
-  new_node->value = data;
+  new_raviNode->next = (*ref);
+  new_raviNode->prev = NULL;
+  new_raviNode->value = data;
 
   if ((*ref) != NULL)
-    (*ref)->prev = new_node;
+    (*ref)->prev = new_raviNode;
   else
   {
-    head = new_node;
-    tail = new_node;
+    head = new_raviNode;
+    tail = new_raviNode;
   }
 
-  (*ref) = new_node;
+  (*ref) = new_raviNode;
 }
 
-void add_cir_prog(Node **ref, int data)
+void add_cir_prog(raviNode **ref, int data)
 {
   if ((*ref) == NULL)
   {
@@ -181,32 +181,32 @@ void add_cir_prog(Node **ref, int data)
 
   if ((*ref)->next == NULL)
   {
-    Node *new_node = new Node;
-    new_node->next = (*ref);
-    new_node->prev = (*ref);
-    new_node->value = data;
-    (*ref)->next = new_node;
+    raviNode *new_raviNode = new raviNode;
+    new_raviNode->next = (*ref);
+    new_raviNode->prev = (*ref);
+    new_raviNode->value = data;
+    (*ref)->next = new_raviNode;
     return;
   }
 
-  Node *temp = (*ref)->next;
+  raviNode *temp = (*ref)->next;
 
-  Node *new_node = new Node;
+  raviNode *new_raviNode = new raviNode;
 
-  new_node->value = data;
+  new_raviNode->value = data;
 
-  new_node->next = temp;
+  new_raviNode->next = temp;
 
-  temp->prev = new_node;
+  temp->prev = new_raviNode;
 
-  new_node->prev = *ref;
+  new_raviNode->prev = *ref;
 
-  (*ref)->next = new_node;
+  (*ref)->next = new_raviNode;
 }
 
-int detectLoop(Node *ref)
+int detectLoop(raviNode *ref)
 {
-  Node *tort = ref, *heir = ref;
+  raviNode *tort = ref, *heir = ref;
 
   int cir_pr = 1;
   while (tort && heir && heir->next)
@@ -238,7 +238,7 @@ int detectLoop(Node *ref)
 
 void display()
 {
-  Node *temp = head;
+  raviNode *temp = head;
 
   cout << temp->value << " <-> ";
   temp = temp->next;
@@ -265,32 +265,115 @@ void display()
 map<char, string> codes; // assigning characters with there huffman value
 map<char, int> freq;     // stores frequency of characters
 
-// A Huffman tree node
-struct MinHeapNode
+// A Huffman tree raviNode
+struct MinHeapraviNode
 {
   char data;                 // One of the input characters
   int freq;                  // Frequency of the character
-  MinHeapNode *left, *right; // Left and right child
+  MinHeapraviNode *left, *right; // Left and right child
 
-  MinHeapNode(char data, int freq)
+  MinHeapraviNode(char data, int freq)
   {
     left = right = NULL;
     this->data = data;
     this->freq = freq;
   }
 };
+struct Node
+{
+	int data;
+	Node* left, * right; 
+};
+Node* newnode(int data)
+{
+	Node* node = (Node*)malloc(sizeof(Node)); ;
+	node->data = data;
+	node->left = NULL;
+	node->right = NULL;
+	return node;
+}
+Node* insertLevelOrder(int arr[], Node* root, 
+                       int i, int n) 
+{ 
+    
+    if (i < n) 
+    { 
+        Node* temp = newnode(arr[i]); 
+        root = temp; 
+
+        root->left = insertLevelOrder(arr, 
+                   root->left, 2 * i + 1, n); 
+  
+        
+        root->right = insertLevelOrder(arr, 
+                  root->right, 2 * i + 2, n); 
+    } 
+    return root;
+}
+//function for LCA
+Node* lca(Node* root,int n1,int n2)
+{
+	if(root == NULL)
+	{
+		return NULL;
+	}
+	if(root->data == n1 || root->data ==n2) return root;
+	Node *left_lca = lca(root->left,n1,n2);
+	Node *right_lca = lca(root->right,n1,n2);
+	if(left_lca!=NULL && right_lca!=NULL) return root;
+	if(left_lca == NULL && right_lca == NULL) return NULL;
+
+	return left_lca!=NULL ? left_lca : right_lca ;
+}
+int height(Node *root)
+{
+	if(root == NULL) return 0;
+	else
+	{
+		int lheight = height(root->left);
+		int rheight = height(root->right);
+		
+		if(lheight>rheight)
+		{
+			return (lheight + 1);
+		}
+		else
+			{
+				return (rheight + 1);
+			}
+	}
+}
+void printgivenlevel(Node *root,int level)
+{
+	if(root == NULL) return;
+	else if(level == 1) cout<<root->data<<" ";
+	else
+	{
+		printgivenlevel(root->left, level-1);  
+        printgivenlevel(root->right, level-1);  
+	}
+	
+}
+void printlevelorder(Node *root)
+{
+	int h = height(root);
+	for(int i=0;i<=h;i++)
+	{
+		printgivenlevel(root,i);
+	}
+}
 
 // utility function for the priority queue.
 struct compare
 {
-  bool operator()(MinHeapNode *l, MinHeapNode *r)
+  bool operator()(MinHeapraviNode *l, MinHeapraviNode *r)
   {
     return (l->freq > r->freq);
   }
 };
 
 // utility function to print characters along with there Huffman value.
-void printCodes(struct MinHeapNode *root, string str)
+void printCodes(struct MinHeapraviNode *root, string str)
 {
   if (!root)
     return;
@@ -301,7 +384,7 @@ void printCodes(struct MinHeapNode *root, string str)
 }
 
 // utility function to store characters along with there huffman value in a hash table, here we have C++ STL map.
-void storeCodes(struct MinHeapNode *root, string str)
+void storeCodes(struct MinHeapraviNode *root, string str)
 {
   if (root == NULL)
     return;
@@ -311,22 +394,22 @@ void storeCodes(struct MinHeapNode *root, string str)
   storeCodes(root->right, str + "1");
 }
 
-// STL priority queue to store heap tree, with respect to their heap root node value.
-priority_queue<MinHeapNode *, vector<MinHeapNode *>, compare> minHeap;
+// STL priority queue to store heap tree, with respect to their heap root raviNode value.
+priority_queue<MinHeapraviNode *, vector<MinHeapraviNode *>, compare> minHeap;
 
 // function to build the Huffman tree and store it in minHeap.
 void HuffmanCodes(int size)
 {
-  struct MinHeapNode *left, *right, *top;
+  struct MinHeapraviNode *left, *right, *top;
   for (map<char, int>::iterator v = freq.begin(); v != freq.end(); v++)
-    minHeap.push(new MinHeapNode(v->first, v->second));
+    minHeap.push(new MinHeapraviNode(v->first, v->second));
   while (minHeap.size() != 1)
   {
     left = minHeap.top();
     minHeap.pop();
     right = minHeap.top();
     minHeap.pop();
-    top = new MinHeapNode('$', left->freq + right->freq);
+    top = new MinHeapraviNode('$', left->freq + right->freq);
     top->left = left;
     top->right = right;
     minHeap.push(top);
@@ -349,13 +432,13 @@ void calcFreq(string str, int n)
 }
 
 // function iterates through the encoded string s
-// if s[i]=='1' then move to node->right
-// if s[i]=='0' then move to node->left
-// if leaf node append the node->data to our output string
-string decode_file(struct MinHeapNode *root, string s)
+// if s[i]=='1' then move to raviNode->right
+// if s[i]=='0' then move to raviNode->left
+// if leaf raviNode append the raviNode->data to our output string
+string decode_file(struct MinHeapraviNode *root, string s)
 {
   string ans = "";
-  struct MinHeapNode *curr = root;
+  struct MinHeapraviNode *curr = root;
   for (int i = 0; i < s.size(); i++)
   {
     if (s[i] == '0')
@@ -363,7 +446,7 @@ string decode_file(struct MinHeapNode *root, string s)
     else
       curr = curr->right;
 
-    // reached leaf node
+    // reached leaf raviNode
     if (curr->left == NULL and curr->right == NULL)
     {
       ans += curr->data;
@@ -383,7 +466,7 @@ int main()
   vector<int> graph[routers + 1];
   vector<int> lg[routers + 1];
   vector<RFGraph> ls(routers + 1);
-  //For the first task of making Routing Tables for each node, we assume that the given graph is undirected.
+  //For the first task of making Routing Tables for each raviNode, we assume that the given graph is undirected.
   //For the second task of finding the Maximal Strongly Connected Sub-Network we have to assume that the graph is directed.
   for (int i = 0; i < connections; i++)
   {
@@ -398,7 +481,7 @@ int main()
     ngraph.push_back({destination, origin, cost});
   }
   //Cost or Link is assigned on the basis of desirability of Network Route for sending traffic.
-  //We will now use Bellman Ford Algorithm in order to calculate the routing table for each node.
+  //We will now use Bellman Ford Algorithm in order to calculate the routing table for each raviNode.
   int n = routers;
   vector<vector<int>> global(n + 1, vector<int>(n + 1, 0));
   for (int i = 1; i <= n; i++)
@@ -413,13 +496,13 @@ int main()
     }
     cout << "____________________________________________________" << endl;
   }
-  //Compulsorily we had to run the loops O(N^2) times in order to accomodate shortest possible distance from one node
-  //to every other node. A LAN System behaves in a similar manner, what we printed above is known as Routing Table.
+  //Compulsorily we had to run the loops O(N^2) times in order to accomodate shortest possible distance from one raviNode
+  //to every other raviNode. A LAN System behaves in a similar manner, what we printed above is known as Routing Table.
   // There are some obvious shortcomings, firstly this method doesn't account for Network Link Failiures, hence, finding optimal route
   //for traffic isn't always guranteed.
 
-  //Printing Global View of Each Node:
-  cout << " Final Distances Stored at Each Node (Global View) " << endl;
+  //Printing Global View of Each raviNode:
+  cout << " Final Distances Stored at Each raviNode (Global View) " << endl;
   for (int i = 1; i <= n; i++)
   {
     cout << i << " -> ";
@@ -432,7 +515,7 @@ int main()
   cout << "____________________________________________________" << endl;
 
   //Now we go on and find the maximal strongly connected sub-network.
-  //A strongly connected component of a graph is defined as a component in which every node can visit every other node.
+  //A strongly connected component of a graph is defined as a component in which every raviNode can visit every other raviNode.
   //To do so we are going to implement KosaRaju Algorithm.
   for (int i = 0; i < n; i++)
   {
@@ -471,14 +554,14 @@ int main()
     }
   }
   cout << "Maximal Strongly Connected Sub-Network has " << max_ele << " members and the members are : " << fans << endl;
-  //Typically a network failiures occurs when the link between two nodes is broken. This coerces the whole system to reset the rerouting tables.
-  //Link Failiure is usually prevented by setting a node that continuously sends validation packets to it's neighbours and awaits acknowledgement.
-  //If acknowledgement isn't received then, in terms of graph theory, the edge between the two "routers"/"nodes" is removed and the shortest distance is
+  //Typically a network failiures occurs when the link between two raviNodes is broken. This coerces the whole system to reset the rerouting tables.
+  //Link Failiure is usually prevented by setting a raviNode that continuously sends validation packets to it's neighbours and awaits acknowledgement.
+  //If acknowledgement isn't received then, in terms of graph theory, the edge between the two "routers"/"raviNodes" is removed and the shortest distance is
   //recalculated via Bellmann Ford Algorithm.
-  cout << "Enter link between two nodes to be killed" << endl;
-  int node1, node2;
-  cin >> node1 >> node2;
-  removeEdge(node1, node2);
+  cout << "Enter link between two raviNodes to be killed" << endl;
+  int raviNode1, raviNode2;
+  cin >> raviNode1 >> raviNode2;
+  removeEdge(raviNode1, raviNode2);
   for (int i = 1; i <= n; i++)
   {
     vector<int> dis(n + 1, 10000);
@@ -499,28 +582,28 @@ int main()
     cout << endl;
   }
   cout << "____________________________________________________" << endl;
-  //Creating LSP of a given node
-  //More precisely, each node creates an update packet, also called a link-state packet (LSP), which contains the following information:
+  //Creating LSP of a given raviNode
+  //More precisely, each raviNode creates an update packet, also called a link-state packet (LSP), which contains the following information:
 
-  /* The ID of the node that created the LSP
-      A list of directly connected neighbors of that node, with the cost of the link to each one
+  /* The ID of the raviNode that created the LSP
+      A list of directly connected neighbors of that raviNode, with the cost of the link to each one
       A sequence number
       A time to live for this packet */
-  /* Consider a node X that receives a copy of an LSP that originated at some other node Y. 
+  /* Consider a raviNode X that receives a copy of an LSP that originated at some other raviNode Y. 
   If not, it stores the LSP. If it already has a copy, it compares the sequence numbers; 
   if the new LSP has a larger sequence number, it is assumed to be the more recent, and that LSP is stored, replacing the old one.
   A smaller (or equal) sequence number would imply an LSP older (or not newer) than the one stored, so it would be discarded and no further action would be needed. 
   If the received LSP was the newer one, X then sends a copy of that LSP to all of its neighbors except the neighbor from which the LSP was just received.
-  The fact that the LSP is not sent back to the node from which it was received helps to bring an end to the flooding of an LSP. 
-  Since X passes the LSP on to all its neighbors, who then turn around and do the same thing, the most recent copy of the LSP eventually reaches all nodes.*/
-  int lspnode;
-  cout << "Enter a node whose Link State packet is to be created" << endl; //In real life this process is automated when update is done.
-  cin >> lspnode;
+  The fact that the LSP is not sent back to the raviNode from which it was received helps to bring an end to the flooding of an LSP. 
+  Since X passes the LSP on to all its neighbors, who then turn around and do the same thing, the most recent copy of the LSP eventually reaches all raviNodes.*/
+  int lspraviNode;
+  cout << "Enter a raviNode whose Link State packet is to be created" << endl; //In real life this process is automated when update is done.
+  cin >> lspraviNode;
   vector<int> neighbours(0);
-  for (int j = 0; j < lg[lspnode].size(); j++)
-    neighbours.push_back(lg[lspnode][j]);
-  LSP obj = {lspnode, neighbours, 1};
-  cout << "Node Id : " << obj.nodeid << endl;
+  for (int j = 0; j < lg[lspraviNode].size(); j++)
+    neighbours.push_back(lg[lspraviNode][j]);
+  LSP obj = {lspraviNode, neighbours, 1};
+  cout << "raviNode Id : " << obj.raviNodeid << endl;
   cout << "Sequence Number (Default) : " << obj.sequence << endl;
   cout << "Neighbours : ";
   for (int i = 0; i < obj.neighbours.size(); i++)
@@ -528,27 +611,27 @@ int main()
     cout << obj.neighbours[i] << " ";
   }
   cout << endl;
-  lspdfs(lspnode, lg);
-  //Giving Node 2 a Node ID which is greater than 3, this will imply that Node 2 has received a more recent flood from node 3 with greater sequence.
-  //Hence , it will not update it's LSP to the flood recieved from Node 1.
-  ls[2].packet.nodeid = 3;
+  lspdfs(lspraviNode, lg);
+  //Giving raviNode 2 a raviNode ID which is greater than 3, this will imply that raviNode 2 has received a more recent flood from raviNode 3 with greater sequence.
+  //Hence , it will not update it's LSP to the flood recieved from raviNode 1.
+  ls[2].packet.raviNodeid = 3;
   ls[2].packet.sequence = 4;
   for (int i = 1; i <= n; i++)
   {
     if (cvis[i])
     {
-      if (ls[i].packet.nodeid == -1 || ls[i].packet.sequence < obj.sequence) //To replace the second condition of NodeId with Sequence Number.
+      if (ls[i].packet.raviNodeid == -1 || ls[i].packet.sequence < obj.sequence) //To replace the second condition of raviNodeId with Sequence Number.
         ls[i].packet = obj;
     }
   }
   cout << "Flooding successful displaying details" << endl;
   for (int i = 1; i <= n; i++)
   {
-    if (ls[i].packet.nodeid != obj.nodeid)
+    if (ls[i].packet.raviNodeid != obj.raviNodeid)
     {
       continue;
     }
-    cout << " Flood received from " << ls[i].packet.nodeid << " @ Node : " << i << endl; //Details of which Node has received the packet from initiator.
+    cout << " Flood received from " << ls[i].packet.raviNodeid << " @ raviNode : " << i << endl; //Details of which raviNode has received the packet from initiator.
   }
   /*____________________________________________________________________________________________________________________________________________*/
   /*The next section deals with Cell Tower Placement Plan*/
@@ -588,7 +671,7 @@ int main()
   /*Each cell region therefore uses one control tower with a
     specific channel and the region or control tower adjacent to it
     will use another tower and another channel. It is not hard to see
-    how by using 4 channels, a node coloring algorithm can be
+    how by using 4 channels, a raviNode coloring algorithm can be
     used to efficiently plan towers and channels in a mobile
     network*/
 
@@ -626,8 +709,6 @@ Tasks :
 2) Traverse the Huffman Tree and assign codes to characters.
 3) Create a cumulative Huffmann String.
 4) Decode this string by traversing the Huffmann Tree.
-5) Take reference from : https://www.geeksforgeeks.org/huffman-decoding/
-6) Also take reference from : https://www.geeksforgeeks.org/huffman-coding-greedy-algo-3/
 */
   string str;
   cout << "\nEnter a string to decode and encode it with Huffman Encoding:\n";
@@ -651,6 +732,23 @@ Tasks :
   decodedString = decode_file(minHeap.top(), encodedString);
   cout << "\nDecoded Huffman Data:\n"
        << decodedString << endl;
-
+       /*Kushagra*/
+       int c;
+	cout<<"how many nodes ?"<<endl;
+	cin>>c;
+	int arr[c];
+	cout<<"enter the n nodes "<<endl;
+	for(int i=0;i<c;i++)
+	{
+		cin>>arr[i];
+	}
+	Node* root = insertLevelOrder(arr, root, 0, c); 
+	cout<<"the nodes are : "<<endl;
+	printlevelorder(root);
+	cout<<endl;
+	int xi,yi;
+	cout<<"enter the nodes you which you want ot find LCA of ? "<<endl;
+	cin>>xi>>yi;
+	cout<<lca(root,xi , yi)->data<<endl;
   return 0;
-}
+} 
