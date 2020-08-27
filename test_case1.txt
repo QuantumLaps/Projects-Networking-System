@@ -1,4 +1,6 @@
 Maahir, please update the test cases so that the project can be demonstrated.
+2 - 3 sample test cases would be great!!!
+
 4 5
 1 2 5
 1 3 10
