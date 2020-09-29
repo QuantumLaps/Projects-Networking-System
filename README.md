@@ -4,14 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.center {
-  margin: auto;
-  width: 60%;
-  border: 3px solid #73AD21;
-  padding: 10px;
-}
-</style>
 <div class="center">
 <img src = https://avatars3.githubusercontent.com/u/69033340?s=200&v=4 alt="Reborn">
 </div>
