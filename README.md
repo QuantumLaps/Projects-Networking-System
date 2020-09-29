@@ -4,8 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<center> <img src = https://avatars3.githubusercontent.com/u/69033340?s=200&v=4 alt="Reborn"> </center>
+<div class="center">
+<center><img src = https://avatars3.githubusercontent.com/u/69033340?s=200&v=4 alt="Reborn"></center>
+</div>
+<div class="center">
 <center> <h1> Quantum Laps </h1> </center>
+</div>
 </head>
 <body>
 <h2> Networking System Using C++ </h2>
