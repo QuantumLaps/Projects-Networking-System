@@ -22,7 +22,6 @@
 <li> <u><b>Rahul Das</b></u> : <b>Huffman Decoding Functionalities</b><i>(Module Handled and Created:Huffman string and Huffman Tree)</i> </li>
 <li> <u><b>Ravi Gusain</b></u> : <b>LinkedList Functionalities</b><i>(Module Handled and Created : LinkedList Implementation in OS Processes)</i> </li>
 <p1> 
-<h2> Networking System Using C++ </h2>
 <marquee width="100%" direction="right" height="70px">
 <h2> Functionalities </h2>
 </marquee>
