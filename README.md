@@ -2,6 +2,7 @@
 
 [![GitHub license](https://img.shields.io/github/license/QuantumLaps/Projects-Networking-System)](https://github.com/QuantumLaps/Projects-Networking-System/blob/master/LICENSE)
 
+<h1> Quantum Laps </h1>
 ### **Contributions Handled : _Graph Theory_**
 
 Functionalities as of now:
