@@ -21,7 +21,7 @@
 <li> <u><b>Kushagra Sharma</b></u> : <b>Trees and Tries Functionalities</b><i>(Module Handled and Created:Tree Algorithms)</i> </li>
 <li> <u><b>Rahul Das</b></u> : <b>Huffman Decoding Functionalities</b><i>(Module Handled and Created:Huffman string and Huffman Tree)</i> </li>
 <li> <u><b>Ravi Gusain</b></u> : <b>LinkedList Functionalities</b><i>(Module Handled and Created : LinkedList Implementation in OS Processes)</i> </li>
-<p1> 
+  </ul>
 <marquee width="100%" direction="right" height="70px">
 <h2> Functionalities </h2>
 </marquee>
@@ -33,6 +33,7 @@
 <li> Huffmann Encoding and Decoding </li>
 <li> LinkedList Deadlock Process detection using Floyd's Algo </li>
 <li> Node flooding as Router Tree </li>
+  </ul>
 </body>
 </html>
 
