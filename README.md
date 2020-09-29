@@ -2,7 +2,9 @@
 <html>
 <head>
 <h1> Networking System Using C++ </h1>
+<a href="https://github.com/QuantumLaps/Projects-Networking-System/blob/master/LICENSE">
 <img alt="GitHub" src="https://img.shields.io/github/license/QuantumLaps/Projects-Networking-System">
+</a>
 <p align="center">
 <img src = https://avatars3.githubusercontent.com/u/69033340?s=200&v=4 alt="Reborn">
 </p>
