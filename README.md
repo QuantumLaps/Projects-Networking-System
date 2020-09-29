@@ -1,16 +1,13 @@
-# Projects-Networking-System
-
 [![GitHub license](https://img.shields.io/github/license/QuantumLaps/Projects-Networking-System)](https://github.com/QuantumLaps/Projects-Networking-System/blob/master/LICENSE)
 <!DOCTYPE html>
 <html>
 <head>
+<h1> Networking System Using C++ </h1>
 <p align="center">
 <img src = https://avatars3.githubusercontent.com/u/69033340?s=200&v=4 alt="Reborn">
 </p>
-<h1 align="center"> Quantum Laps </h1>
 </head>
 <body>
-<h2> Networking System Using C++ </h2>
 <marquee width="100%" direction="right" height="70px">
 <h2> Contribution Stats </h2>
 </marquee>
